@@ -15,17 +15,23 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: Prepare web files for Capacitor
         run: |
-          mkdir www
+          mkdir -p www
           cp -r index.html www/
           cp -r README.md www/ 2>/dev/null || true
           cp -r styles www/ 2>/dev/null || true
           cp -r src www/ 2>/dev/null || true
 
-      - name: Install Capacitor & Dependencies
+      - name: Install Capacitor & Add Android Platform
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
@@ -33,17 +39,11 @@ jobs:
           npx cap add android
           npx cap sync android
 
-      - name: Setup Java JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
       - name: Build Android APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK Artifact
         uses: actions/upload-artifact@v4

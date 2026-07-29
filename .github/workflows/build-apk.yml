@@ -27,9 +27,8 @@ jobs:
       - name: Prepare web files
         run: |
           mkdir -p www
-          cp index.html www/
-          cp -r styles www/ 2>/dev/null || true
-          cp -r src www/ 2>/dev/null || true
+          # Копируем абсолютно все файлы и папки проекта в www
+          rsync -av --exclude='www' --exclude='.git' --exclude='.github' ./ www/
 
       - name: Install Dependencies & Init Capacitor
         run: |

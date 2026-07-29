@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>SURVIVAL — 2D Canvas</title>
+<link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+<div id="game-wrap">
+  <canvas id="game"></canvas>
+
+  <!-- HUD во время игры -->
+  <div id="hud" class="hidden">
+    <button id="pause-btn" type="button" aria-label="Пауза"><span class="bar"></span><span class="bar"></span></button>
+    <div class="hud-block">
+      <div class="hud-label">Очки</div>
+      <div class="hud-value" id="score-value">0</div>
+    </div>
+    <div class="hud-spacer"></div>
+    <div class="hud-block">
+      <div class="hud-label">Рекорд</div>
+      <div class="hud-value" id="best-value">0</div>
+    </div>
+  </div>
+  <button id="hyper-btn" class="hidden" type="button" aria-label="Гипер-способность"><span id="hyper-inner">ГИПЕР</span></button>
+
+  <!-- Главное меню -->
+  <div id="screen-menu" class="screen">
+    <div class="coins-badge" id="menu-coins-badge"><span class="coin"></span><span id="menu-coins">0</span></div>
+    <h1>SUR<span class="accent-red">VIVAL</span></h1>
+    <p>Уворачивайся от врагов, копи монеты, покупай скины. Шкала ГИПЕР заряжается за 15 секунд выживания: активируй — 4 секунды неуязвимости и уничтожение врагов касанием.</p>
+    <div class="stat-line" id="menu-best">Рекорд: 0</div>
+    <button class="btn" id="btn-play" type="button">ИГРАТЬ</button>
+    <button class="btn btn-secondary" id="btn-shop" type="button">МАГАЗИН</button>
+    <button class="btn btn-secondary" id="btn-settings" type="button">НАСТРОЙКИ</button>
+  </div>
+
+  <!-- Магазин -->
+  <div id="screen-shop" class="screen hidden">
+    <h2>Магазин</h2>
+    <div class="coins-badge"><span class="coin"></span><span id="shop-coins">0</span></div>
+    <div id="shop-list"></div>
+    <button class="btn btn-secondary" id="btn-shop-back" type="button">Назад</button>
+  </div>
+
+  <!-- Настройки -->
+  <div id="screen-settings" class="screen hidden">
+    <h2>Настройки</h2>
+    <label class="setting-row">Вибрация<input type="checkbox" id="chk-vibro"></label>
+    <label class="setting-row">Показывать джойстик<input type="checkbox" id="chk-joystick"></label>
+    <button class="btn btn-danger" id="btn-reset" type="button">Сбросить прогресс</button>
+    <button class="btn btn-secondary" id="btn-settings-back" type="button">Назад</button>
+  </div>
+
+  <!-- Пауза -->
+  <div id="screen-pause" class="screen hidden">
+    <h2>Пауза</h2>
+    <button class="btn" id="btn-resume" type="button">Продолжить</button>
+    <button class="btn btn-secondary" id="btn-quit" type="button">В меню</button>
+  </div>
+
+  <!-- Конец игры -->
+  <div id="screen-gameover" class="screen hidden">
+    <h2>ТЫ <span class="accent-red">ПОГИБ</span></h2>
+    <div class="stat-line" id="go-score">Очки: 0</div>
+    <div class="coins-badge"><span class="coin"></span><span id="go-coins">+0</span></div>
+    <button class="btn" id="btn-again" type="button">Ещё раз</button>
+    <button class="btn btn-secondary" id="btn-go-menu" type="button">В меню</button>
+  </div>
+</div>
+<script type="module" src="src/core/Game.js"></script>
+</body>
+</html>

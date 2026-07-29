@@ -3,6 +3,7 @@ name: Build Android APK
 on:
   push:
     branches: [ main, master ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -23,18 +24,17 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Prepare web files for Capacitor
+      - name: Prepare web files
         run: |
           mkdir -p www
-          cp -r index.html www/
-          cp -r README.md www/ 2>/dev/null || true
+          cp index.html www/
           cp -r styles www/ 2>/dev/null || true
           cp -r src www/ 2>/dev/null || true
 
-      - name: Install Capacitor & Add Android Platform
+      - name: Install Dependencies & Init Capacitor
         run: |
           npm init -y
-          npm install @capacitor/core @capacitor/cli @capacitor/android
+          npm install @capacitor/core@6 @capacitor/cli@6 @capacitor/android@6
           npx cap init SURVIVAL com.survival.game --web-dir www
           npx cap add android
           npx cap sync android

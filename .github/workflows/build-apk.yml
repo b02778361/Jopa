@@ -17,11 +17,19 @@ jobs:
         with:
           node-version: 18
 
+      - name: Prepare web files for Capacitor
+        run: |
+          mkdir www
+          cp -r index.html www/
+          cp -r README.md www/ 2>/dev/null || true
+          cp -r styles www/ 2>/dev/null || true
+          cp -r src www/ 2>/dev/null || true
+
       - name: Install Capacitor & Dependencies
         run: |
           npm init -y
           npm install @capacitor/core @capacitor/cli @capacitor/android
-          npx cap init SURVIVAL com.survival.game --web-dir .
+          npx cap init SURVIVAL com.survival.game --web-dir www
           npx cap add android
           npx cap sync android
 
